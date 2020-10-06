@@ -1,0 +1,8 @@
+# Horizontal shift
+hshift: -18.88
+
+# Vertical size
+vsize: 97.76
+
+# Coordinates (x, y) of the four control points
+cp: [[30., 86.78], [10., 0.], [10., 10.98], [30., 97.76]]

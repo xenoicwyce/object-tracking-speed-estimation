@@ -1,3 +1,20 @@
+# Image / video files
+*.jpg
+*.png
+*.mp4
+*.avi
+*.wmv
+*.mov
+*.flv
+*.webm
+
+# Video / data directory (default)
+videos/
+output_videos/
+sample_videos/
+data/
+images/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
