@@ -8,7 +8,12 @@ Args:
 - `-v` or `--video`: Path to the input video file.
 - `-t` or `--tracker`: Tracker algorithm to be used. Defaults to `csrt` if not specified.
 - `-o` or `--output`: Path to the output video file. If specified, the tracking result will be saved as a `.mp4` video. Optional.
-- `-d` or `--data`: Path to the output data file. If specified, data will be saved to the file as JSON. Optional.
+- `-d` or `--data`: Path to the output data file. If specified, details of the tracking result will be saved to the file as JSON. Optional.
+
+In cv2 window:
+- Press `s` to select a box, then press `Space` to complete the selection.
+- Press `f` to move one frame forward.
+- Press `q` to quit the window.
 
 Example usage:
 ```
