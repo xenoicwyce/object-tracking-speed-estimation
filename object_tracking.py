@@ -181,7 +181,7 @@ data['time'] = [n/input_fps for n in range(len(data['centroid_x']))]
 # write the tracked output to a video file specified
 if args.get('output', False) and len(frame_buffer) != 0:
     dirname = os.path.dirname(args['output'])
-    if not os.path.exists(dirname):
+    if not os.path.exists(dirname) and dirname:
         os.makedirs(dirname)
     size = (W, H)
     out = cv2.VideoWriter(args['output'], cv2.VideoWriter_fourcc(*'mp4v'),
@@ -206,7 +206,7 @@ cv2.destroyAllWindows()
 
 if args.get('data', False):
     dirname = os.path.dirname(args['data'])
-    if not os.path.exists(dirname):
+    if not os.path.exists(dirname) and dirname:
         os.makedirs(dirname)
     with open(args['data'], 'w') as f:
         json.dump(data, f)
