@@ -30,11 +30,6 @@ ap.add_argument('-d', '--data', type=str,
                 help='path to the data json file')
 args = vars(ap.parse_args())
 
-if 'image' not in args:
-    raise ValueError('Specify the image filename via the argument "-i" or "--image".')
-if 'data' not in args:
-    raise ValueError('Specify the data filename via the argument "-d" or "--data".')
-
 with open(args['data']) as f:
     data = json.load(f)
 

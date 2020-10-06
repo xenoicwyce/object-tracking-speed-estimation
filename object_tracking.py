@@ -65,7 +65,7 @@ else:
 initBB = None
 
 # if a video path was not supplied, grab the reference to the web cam
-if not args.get("video", False):
+if not args.get("video"):
     print("[INFO] starting video stream...")
     vs = VideoStream(src=0).start()
     time.sleep(1.0)
@@ -89,7 +89,7 @@ while True:
     # grab the current frame, then handle if we are using a
     # VideoStream or VideoCapture object
     frame = vs.read()
-    frame = frame[1] if args.get("video", False) else frame
+    frame = frame[1] if args.get("video") else frame
 
     # check to see if we have reached the end of the stream
     if frame is None:
@@ -143,7 +143,7 @@ while True:
             cv2.putText(frame, text, (10, H - ((i * 20) + 20)),
                 cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 255), 2)
 
-        if args.get('output', False):
+        if args.get('output'):
             frame_buffer.append(frame)
 
     # show the output frame
@@ -179,7 +179,7 @@ while True:
 data['time'] = [n/input_fps for n in range(len(data['centroid_x']))]
 
 # write the tracked output to a video file specified
-if args.get('output', False) and len(frame_buffer) != 0:
+if args.get('output') and len(frame_buffer) != 0:
     dirname = os.path.dirname(args['output'])
     if not os.path.exists(dirname) and dirname:
         os.makedirs(dirname)
@@ -194,7 +194,7 @@ if args.get('output', False) and len(frame_buffer) != 0:
     data['output'] = args['output']
 
 # if we are using a webcam, release the pointer
-if not args.get("video", False):
+if not args.get("video"):
     vs.stop()
 
 # otherwise, release the file pointer
@@ -204,7 +204,7 @@ else:
 # close all windows
 cv2.destroyAllWindows()
 
-if args.get('data', False):
+if args.get('data'):
     dirname = os.path.dirname(args['data'])
     if not os.path.exists(dirname) and dirname:
         os.makedirs(dirname)
