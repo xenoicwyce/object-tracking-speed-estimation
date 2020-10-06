@@ -10,6 +10,11 @@ Args:
 - `-o` or `--output`: Path to the output video file. If specified, the tracking result will be saved as a `.mp4` video. Optional.
 - `-d` or `--data`: Path to the output data file. If specified, data will be saved to the file as JSON. Optional.
 
+In cv2 window:
+- Press `s` to select a box, then press `Space` to complete the selection.
+- Press `f` to move one frame forward.
+- Press `q` to quit the window.
+
 Example usage:
 ```
 python object_tracking.py --video path/to/my/video.mp4 --tracker csrt --output out.mp4 --data data.json
