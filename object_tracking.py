@@ -25,7 +25,7 @@ data = {
 ap = argparse.ArgumentParser()
 ap.add_argument("-v", "--video", type=str,
     help="path to input video file")
-ap.add_argument("-t", "--tracker", type=str, default="kcf",
+ap.add_argument("-t", "--tracker", type=str, default="csrt",
     help="OpenCV object tracker type")
 ap.add_argument('-o', '--output', type=str,
     help='path to output video file')
