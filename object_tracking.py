@@ -13,12 +13,13 @@ import os
 
 # data prototype
 data = {
-    'time': [],
     'video': '',
     'output': '',
-    'fps': 0.0,
+    'fps': -1.0,
     'centroid_x': [],
     'centroid_y': [],
+    'frame_count': [],
+    'tracking_start': -1,
 }
 
 # construct the argument parser and parse the arguments
@@ -83,6 +84,7 @@ data['fps'] = input_fps
 fps = None
 frame_buffer = []
 pause = True # pause flag
+frame_count = -1
 
 # loop over frames from the video stream
 while True:
@@ -94,6 +96,8 @@ while True:
     # check to see if we have reached the end of the stream
     if frame is None:
         break
+
+    frame_count += 1
 
     # resize the frame (so we can process it faster) and grab the
     # frame dimensions
@@ -115,14 +119,8 @@ while True:
 
             data['centroid_x'].append(pos[0])
             data['centroid_y'].append(pos[1])
+            data['frame_count'].append(frame_count)
 
-            # if not prev_pos:
-            #     prev_pos = pos
-            # else:
-            #     delta = (pos[0] - prev_pos[0], pos[1] - prev_pos[1])
-            #     speed = math.sqrt(delta[0]**2 + delta[1]**2)*input_fps
-            #     prev_pos = pos
-            #     data['speed'].append(speed)
 
         # update the FPS counter
         fps.update()
@@ -134,6 +132,7 @@ while True:
             ("Tracker", args["tracker"]),
             ("Success", "Yes" if success else "No"),
             ("FPS", "{:.2f}".format(fps.fps())),
+            ('Frame No.', frame_count),
             ('(X, Y)', '({}, {})'.format(x, y)),
         ]
 
@@ -166,17 +165,19 @@ while True:
         tracker.init(frame, initBB)
         fps = FPS().start()
         pause = False
+        data['tracking_start'] = frame_count
 
     # if the `f` key is pressed, go to the next frame
     elif key == ord('f'):
         continue
 
+    # toggle pause
+    elif key == ord('p'):
+        pause = not pause
+
     # if the `q` key was pressed, break from the loop
     elif key == ord("q"):
         break
-
-# time series array
-data['time'] = [n/input_fps for n in range(len(data['centroid_x']))]
 
 # write the tracked output to a video file specified
 if args.get('output') and len(frame_buffer) != 0:
@@ -210,3 +211,4 @@ if args.get('data'):
         os.makedirs(dirname)
     with open(args['data'], 'w') as f:
         json.dump(data, f)
+        print('Data written successfully to {}.'.format(args['data']))
